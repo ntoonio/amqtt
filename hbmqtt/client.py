@@ -201,7 +201,7 @@ class MQTTClient:
             while self.client_tasks:
                 task = self.client_tasks.pop()
                 task.cancel()
-        except IndexError as err:
+        except IndexError:
             pass
 
     async def reconnect(self, cleansession=None):

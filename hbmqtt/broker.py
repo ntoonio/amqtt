@@ -5,7 +5,6 @@ import logging
 import ssl
 import websockets
 import asyncio
-import sys
 import re
 from asyncio import CancelledError
 from collections import deque
@@ -147,7 +146,7 @@ class Broker:
     MQTT 3.1.1 compliant broker implementation
 
     :param config: Example Yaml config
-    :param loop: asyncio loop to use. Defaults to ``asyncio.get_event_loop()`` if none is given
+    :param loop: asyncio loop to use. Defaults to ``asyncio.get_event_loop()``.
     :param plugin_namespace: Plugin namespace to use when loading plugin entry_points. Defaults to ``hbmqtt.broker.plugins``
 
     """
@@ -297,10 +296,9 @@ class Broker:
                             )
 
                     address, s_port = listener["bind"].split(":")
-                    port = 0
                     try:
                         port = int(s_port)
-                    except ValueError as ve:
+                    except ValueError:
                         raise BrokerException(
                             "Invalid port value in bind value: %s" % listener["bind"]
                         )
